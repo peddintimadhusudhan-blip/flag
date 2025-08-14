@@ -1,37 +1,69 @@
 import { useState, useRef } from 'react';
 import FlagPole from './components/FlagPole';
+import FlowerPetals from './components/FlowerPetals';
 import './App.css';
 
 function App() {
   const [isHoisted, setIsHoisted] = useState(false);
+  const [isUnfurling, setIsUnfurling] = useState(false);
+  const [showFlowers, setShowFlowers] = useState(false);
   const [isAnthemPlaying, setIsAnthemPlaying] = useState(false);
   const [showAnthemNotice, setShowAnthemNotice] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
   const timeoutRef = useRef<number | null>(null);
+  const unfurlTimeoutRef = useRef<number | null>(null);
+  const flowerTimeoutRef = useRef<number | null>(null);
+  const anthemTimeoutRef = useRef<number | null>(null);
 
   const handleHoistFlag = () => {
     if (!isHoisted) {
       setIsHoisted(true);
 
-      // Show anthem notice
-      setShowAnthemNotice(true);
+      // Start unfurling after flag reaches the top (3 seconds)
+      unfurlTimeoutRef.current = setTimeout(() => {
+        setIsUnfurling(true);
+      }, 3000);
 
-      // Start anthem after 2 seconds (flag hoisting animation time)
+      // Show flowers after unfurling starts (4 seconds total)
+      flowerTimeoutRef.current = setTimeout(() => {
+        setShowFlowers(true);
+      }, 4000);
+
+      // Show anthem notice after flowers start (5 seconds)
       timeoutRef.current = setTimeout(() => {
+        setShowAnthemNotice(true);
+      }, 5000);
+
+      // Start anthem after notice (7 seconds total)
+      anthemTimeoutRef.current = setTimeout(() => {
         setShowAnthemNotice(false);
         setIsAnthemPlaying(true);
         if (audioRef.current) {
           audioRef.current.play().catch(console.error);
         }
-      }, 4000);
+      }, 7000);
     } else {
-      // Clear any pending timeout to prevent play() after pause()
+      // Clear all timeouts
       if (timeoutRef.current) {
         clearTimeout(timeoutRef.current);
         timeoutRef.current = null;
       }
+      if (unfurlTimeoutRef.current) {
+        clearTimeout(unfurlTimeoutRef.current);
+        unfurlTimeoutRef.current = null;
+      }
+      if (flowerTimeoutRef.current) {
+        clearTimeout(flowerTimeoutRef.current);
+        flowerTimeoutRef.current = null;
+      }
+      if (anthemTimeoutRef.current) {
+        clearTimeout(anthemTimeoutRef.current);
+        anthemTimeoutRef.current = null;
+      }
 
       setIsHoisted(false);
+      setIsUnfurling(false);
+      setShowFlowers(false);
       setIsAnthemPlaying(false);
       setShowAnthemNotice(false);
       if (audioRef.current) {
@@ -43,6 +75,7 @@ function App() {
 
   const handleAnthemEnd = () => {
     setIsAnthemPlaying(false);
+    setShowFlowers(false);
   };
 
   return (
@@ -71,6 +104,9 @@ function App() {
         {/* Fallback message for browsers that don't support audio */}
         Your browser does not support the audio element.
       </audio>
+
+      {/* Falling Flower Petals */}
+      <FlowerPetals isActive={showFlowers} />
 
       {/* Anthem Notice */}
       {/* Eksaq Logo */}
@@ -105,7 +141,7 @@ function App() {
       <div className="flex flex-col items-center justify-center min-h-screen text-center relative z-10">
         {/* Flag Section */}
         <div className="mb-12">
-          <FlagPole isHoisted={isHoisted} />
+          <FlagPole isHoisted={isHoisted} isUnfurling={isUnfurling} />
         </div>
 
         {/* Main Heading */}

@@ -2,9 +2,10 @@ import React from 'react';
 
 interface FlagPoleProps {
   isHoisted: boolean;
+  isUnfurling: boolean;
 }
 
-const FlagPole: React.FC<FlagPoleProps> = ({ isHoisted }) => {
+const FlagPole: React.FC<FlagPoleProps> = ({ isHoisted, isUnfurling }) => {
   return (
     <div className="flex flex-col items-center h-96 relative">
       {/* Pole */}
@@ -15,12 +16,27 @@ const FlagPole: React.FC<FlagPoleProps> = ({ isHoisted }) => {
         {/* Flag */}
         <div 
           className={`absolute right-0 top-6 flag-hoist transform ${
-            isHoisted ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-40 opacity-60 scale-90'
+            isHoisted ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-48 opacity-60 scale-90'
           }`}
         >
           <div className="relative">
             {/* Flag with animation */}
-            <div className={`w-48 h-32 shadow-2xl transform-gpu border border-gray-300 ${isHoisted ? 'animate-wave' : ''}`}>
+            <div className={`shadow-2xl transform-gpu border border-gray-300 transition-all duration-1000 ${
+              !isHoisted ? 'w-8 h-32 bg-gradient-to-b from-orange-500 via-white to-green-600' : 
+              !isUnfurling ? 'w-8 h-32 bg-gradient-to-b from-orange-500 via-white to-green-600' :
+              'w-48 h-32'
+            } ${isUnfurling && isHoisted ? 'animate-wave' : ''}`}>
+              {/* Folded flag state */}
+              {(!isHoisted || !isUnfurling) && (
+                <div className="w-full h-full bg-gradient-to-b from-orange-500 via-white to-green-600 relative">
+                  {/* Folded flag texture */}
+                  <div className="absolute inset-0 bg-gradient-to-r from-black/10 via-transparent to-black/10"></div>
+                </div>
+              )}
+              
+              {/* Unfurled flag state */}
+              {isHoisted && isUnfurling && (
+                <>
               {/* Saffron stripe */}
               <div className="h-1/3 bg-gradient-to-r from-orange-500 to-orange-600 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-30 animate-pulse"></div>
@@ -29,7 +45,7 @@ const FlagPole: React.FC<FlagPoleProps> = ({ isHoisted }) => {
               {/* White stripe with Ashoka Chakra */}
               <div className="h-1/3 bg-white relative flex items-center justify-center">
                 {/* Ashoka Chakra */}
-                <div className={`w-8 h-8 relative ${isHoisted ? 'animate-spin-slow' : ''}`}>
+                <div className={`w-8 h-8 relative ${isUnfurling ? 'animate-spin-slow' : ''}`}>
                   <div className="absolute inset-0 border-2 border-blue-900 rounded-full shadow-sm"></div>
                   {/* Chakra spokes */}
                   {Array.from({ length: 24 }).map((_, i) => (
@@ -48,6 +64,8 @@ const FlagPole: React.FC<FlagPoleProps> = ({ isHoisted }) => {
               <div className="h-1/3 bg-gradient-to-r from-green-600 to-green-700 relative overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white to-transparent opacity-30 animate-pulse"></div>
               </div>
+                </>
+              )}
             </div>
             
             {/* Flag rope */}
