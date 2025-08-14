@@ -7,49 +7,139 @@ interface FlowerPetalsProps {
 const FlowerPetals: React.FC<FlowerPetalsProps> = ({ isActive }) => {
   if (!isActive) return null;
 
-  const petals = Array.from({ length: 20 }, (_, i) => ({
+  const flowers = Array.from({ length: 15 }, (_, i) => ({
     id: i,
     delay: Math.random() * 2,
     duration: 3 + Math.random() * 2,
     left: Math.random() * 100,
     rotation: Math.random() * 360,
     size: 0.5 + Math.random() * 0.5,
+    type: Math.floor(Math.random() * 5), // 5 different flower types
   }));
 
+  const renderFlower = (flower: any) => {
+    const baseClasses = "absolute animate-fall";
+    const style = {
+      left: `${flower.left}%`,
+      animationDelay: `${flower.delay}s`,
+      animationDuration: `${flower.duration}s`,
+      transform: `rotate(${flower.rotation}deg) scale(${flower.size})`,
+    };
+
+    switch (flower.type) {
+      case 0: // Rose
+        return (
+          <div key={flower.id} className={baseClasses} style={style}>
+            <div className="relative w-6 h-6">
+              {/* Rose petals */}
+              <div className="absolute inset-0 w-4 h-4 bg-gradient-to-br from-red-400 to-red-600 rounded-full opacity-90"></div>
+              <div className="absolute top-1 left-1 w-4 h-4 bg-gradient-to-br from-pink-400 to-red-500 rounded-full opacity-80"></div>
+              <div className="absolute top-0.5 left-0.5 w-3 h-3 bg-gradient-to-br from-pink-300 to-pink-500 rounded-full opacity-70"></div>
+              {/* Center */}
+              <div className="absolute top-2 left-2 w-2 h-2 bg-yellow-300 rounded-full opacity-90"></div>
+            </div>
+          </div>
+        );
+      
+      case 1: // Marigold
+        return (
+          <div key={flower.id} className={baseClasses} style={style}>
+            <div className="relative w-5 h-5">
+              {/* Marigold petals */}
+              {Array.from({ length: 8 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute w-2 h-3 bg-gradient-to-t from-orange-500 to-yellow-400 rounded-full opacity-85"
+                  style={{
+                    transform: `rotate(${i * 45}deg)`,
+                    transformOrigin: '50% 100%',
+                    top: '10px',
+                    left: '8px',
+                  }}
+                />
+              ))}
+              {/* Center */}
+              <div className="absolute top-2 left-2 w-1.5 h-1.5 bg-orange-700 rounded-full"></div>
+            </div>
+          </div>
+        );
+      
+      case 2: // Lotus
+        return (
+          <div key={flower.id} className={baseClasses} style={style}>
+            <div className="relative w-6 h-6">
+              {/* Lotus petals */}
+              {Array.from({ length: 6 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute w-3 h-4 bg-gradient-to-t from-pink-500 to-pink-200 rounded-full opacity-80"
+                  style={{
+                    transform: `rotate(${i * 60}deg)`,
+                    transformOrigin: '50% 90%',
+                    top: '8px',
+                    left: '6px',
+                  }}
+                />
+              ))}
+              {/* Center */}
+              <div className="absolute top-2.5 left-2.5 w-1 h-1 bg-yellow-400 rounded-full"></div>
+            </div>
+          </div>
+        );
+      
+      case 3: // Jasmine
+        return (
+          <div key={flower.id} className={baseClasses} style={style}>
+            <div className="relative w-4 h-4">
+              {/* Jasmine petals */}
+              {Array.from({ length: 5 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute w-2 h-2 bg-gradient-to-br from-white to-cream-100 rounded-full opacity-95 shadow-sm"
+                  style={{
+                    transform: `rotate(${i * 72}deg)`,
+                    transformOrigin: '50% 100%',
+                    top: '6px',
+                    left: '6px',
+                  }}
+                />
+              ))}
+              {/* Center */}
+              <div className="absolute top-1.5 left-1.5 w-1 h-1 bg-yellow-300 rounded-full"></div>
+            </div>
+          </div>
+        );
+      
+      case 4: // Sunflower (small)
+        return (
+          <div key={flower.id} className={baseClasses} style={style}>
+            <div className="relative w-5 h-5">
+              {/* Sunflower petals */}
+              {Array.from({ length: 10 }).map((_, i) => (
+                <div
+                  key={i}
+                  className="absolute w-1.5 h-3 bg-gradient-to-t from-yellow-500 to-yellow-300 rounded-full opacity-90"
+                  style={{
+                    transform: `rotate(${i * 36}deg)`,
+                    transformOrigin: '50% 100%',
+                    top: '8px',
+                    left: '8px',
+                  }}
+                />
+              ))}
+              {/* Center */}
+              <div className="absolute top-2 left-2 w-1.5 h-1.5 bg-gradient-to-br from-amber-700 to-amber-900 rounded-full"></div>
+            </div>
+          </div>
+        );
+      
+      default:
+        return null;
+    }
+  };
   return (
     <div className="fixed inset-0 pointer-events-none z-30 overflow-hidden">
-      {petals.map((petal) => (
-        <div
-          key={petal.id}
-          className="absolute animate-fall"
-          style={{
-            left: `${petal.left}%`,
-            animationDelay: `${petal.delay}s`,
-            animationDuration: `${petal.duration}s`,
-            transform: `rotate(${petal.rotation}deg) scale(${petal.size})`,
-          }}
-        >
-          {/* Rose petal */}
-          <div className="w-4 h-6 bg-gradient-to-br from-pink-400 to-red-500 rounded-full opacity-80 shadow-sm transform rotate-45"></div>
-        </div>
-      ))}
-      
-      {/* Marigold petals */}
-      {petals.slice(0, 10).map((petal) => (
-        <div
-          key={`marigold-${petal.id}`}
-          className="absolute animate-fall"
-          style={{
-            left: `${(petal.left + 20) % 100}%`,
-            animationDelay: `${petal.delay + 0.5}s`,
-            animationDuration: `${petal.duration + 1}s`,
-            transform: `rotate(${petal.rotation + 45}deg) scale(${petal.size * 0.8})`,
-          }}
-        >
-          {/* Marigold petal */}
-          <div className="w-3 h-5 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full opacity-75 shadow-sm"></div>
-        </div>
-      ))}
+      {flowers.map(renderFlower)}
     </div>
   );
 };
