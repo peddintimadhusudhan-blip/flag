@@ -7,47 +7,57 @@ interface FlowerPetalsProps {
 const FlowerPetals: React.FC<FlowerPetalsProps> = ({ isActive }) => {
   if (!isActive) return null;
 
-  const petals = Array.from({ length: 20 }, (_, i) => ({
+  const flowers = Array.from({ length: 15 }, (_, i) => ({
     id: i,
     delay: Math.random() * 2,
     duration: 3 + Math.random() * 2,
     left: Math.random() * 100,
     rotation: Math.random() * 360,
     size: 0.5 + Math.random() * 0.5,
+    color: i % 4, // 4 different flower colors
   }));
+
+  const getFlowerColor = (colorIndex: number) => {
+    const colors = [
+      'from-pink-400 to-pink-600', // Pink flowers
+      'from-yellow-400 to-orange-500', // Marigold flowers
+      'from-red-400 to-red-600', // Red flowers
+      'from-purple-400 to-purple-600', // Purple flowers
+    ];
+    return colors[colorIndex];
+  };
 
   return (
     <div className="fixed inset-0 pointer-events-none z-30 overflow-hidden">
-      {petals.map((petal) => (
+      {flowers.map((flower) => (
         <div
-          key={petal.id}
+          key={flower.id}
           className="absolute animate-fall"
           style={{
-            left: `${petal.left}%`,
-            animationDelay: `${petal.delay}s`,
-            animationDuration: `${petal.duration}s`,
-            transform: `rotate(${petal.rotation}deg) scale(${petal.size})`,
+            left: `${flower.left}%`,
+            animationDelay: `${flower.delay}s`,
+            animationDuration: `${flower.duration}s`,
+            transform: `rotate(${flower.rotation}deg) scale(${flower.size})`,
           }}
         >
-          {/* Rose petal */}
-          <div className="w-4 h-6 bg-gradient-to-br from-pink-400 to-red-500 rounded-full opacity-80 shadow-sm transform rotate-45"></div>
-        </div>
-      ))}
-      
-      {/* Marigold petals */}
-      {petals.slice(0, 10).map((petal) => (
-        <div
-          key={`marigold-${petal.id}`}
-          className="absolute animate-fall"
-          style={{
-            left: `${(petal.left + 20) % 100}%`,
-            animationDelay: `${petal.delay + 0.5}s`,
-            animationDuration: `${petal.duration + 1}s`,
-            transform: `rotate(${petal.rotation + 45}deg) scale(${petal.size * 0.8})`,
-          }}
-        >
-          {/* Marigold petal */}
-          <div className="w-3 h-5 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full opacity-75 shadow-sm"></div>
+          {/* Small flower with petals */}
+          <div className="relative w-6 h-6">
+            {/* Flower center */}
+            <div className="absolute inset-0 w-2 h-2 bg-yellow-300 rounded-full top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10"></div>
+            {/* Flower petals */}
+            {Array.from({ length: 5 }).map((_, petalIndex) => (
+              <div
+                key={petalIndex}
+                className={`absolute w-3 h-2 bg-gradient-to-br ${getFlowerColor(flower.color)} rounded-full opacity-80 shadow-sm`}
+                style={{
+                  top: '50%',
+                  left: '50%',
+                  transformOrigin: 'center',
+                  transform: `translate(-50%, -50%) rotate(${petalIndex * 72}deg) translateY(-6px)`,
+                }}
+              />
+            ))}
+          </div>
         </div>
       ))}
     </div>

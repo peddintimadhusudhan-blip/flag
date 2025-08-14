@@ -1,8 +1,9 @@
 @keyframes wave {
-  0%, 100% { transform: translateX(0) rotateY(0deg); }
-  25% { transform: translateX(2px) rotateY(5deg); }
-  50% { transform: translateX(0) rotateY(0deg); }
-  75% { transform: translateX(-2px) rotateY(-5deg); }
+  0% { transform: translateX(0) rotateY(0deg) rotateZ(0deg); }
+  25% { transform: translateX(3px) rotateY(8deg) rotateZ(2deg); }
+  50% { transform: translateX(0) rotateY(0deg) rotateZ(0deg); }
+  75% { transform: translateX(-3px) rotateY(-8deg) rotateZ(-2deg); }
+  100% { transform: translateX(0) rotateY(0deg) rotateZ(0deg); }
 }
 
 @keyframes spin-slow {
