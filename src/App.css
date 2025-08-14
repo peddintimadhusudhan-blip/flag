@@ -62,15 +62,50 @@ html {
 /* Falling flower petals animation */
 @keyframes fall {
   0% {
-    transform: translateY(2vh) rotate(0deg);
+    transform: translateY(-10vh) rotate(0deg);
     opacity: 1;
   }
+  10% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.8;
+  }
   100% {
-    transform: translateY(100vh) rotate(360deg);
+    transform: translateY(110vh) rotate(720deg);
     opacity: 0;
   }
 }
 
+@keyframes gentle-sway {
+  0%, 100% {
+    transform: translateX(0px);
+  }
+  25% {
+    transform: translateX(10px);
+  }
+  75% {
+    transform: translateX(-10px);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-5px);
+  }
+}
+
 .animate-fall {
-  animation: fall linear infinite;
+  animation: fall ease-in-out infinite;
+}
+
+.animate-sway {
+  animation: gentle-sway 3s ease-in-out infinite;
+}
+
+.animate-float {
+  animation: float 2s ease-in-out infinite;
 }
