@@ -74,7 +74,7 @@ function App() {
 
       {/* Anthem Notice */}
       {showAnthemNotice && (
-        <div className="fixed top-8 left-1/2 transform -translate-x-1/2 z-50 bg-white/90 backdrop-blur-sm border-2 border-orange-500 rounded-xl px-8 py-4 shadow-2xl animate-pulse">
+        <div className="fixed top-8 right-8 z-50 bg-white/90 backdrop-blur-sm border-2 border-orange-500 rounded-xl px-8 py-4 shadow-2xl animate-pulse">
           <p className="text-orange-600 font-semibold text-center">
             🎵 National Anthem Starting...
           </p>
@@ -83,7 +83,7 @@ function App() {
 
       {/* Playing Indicator */}
       {isAnthemPlaying && (
-        <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-xl px-8 py-4 shadow-2xl">
+        <div className="fixed top-8 right-8 z-50 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-xl px-8 py-4 shadow-2xl">
           <p className="font-semibold text-center flex items-center">
             <span className="animate-pulse mr-2">🎵</span>
             Playing National Anthem
