@@ -83,7 +83,7 @@ function App() {
 
       {/* Playing Indicator */}
       {isAnthemPlaying && (
-        <div className="fixed top-8 left-1/2 transform -translate-x-1/2 z-50 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-xl px-8 py-4 shadow-2xl">
+        <div className="fixed bottom-8 left-1/2 transform -translate-x-1/2 z-50 bg-gradient-to-r from-green-600 to-green-700 text-white rounded-xl px-8 py-4 shadow-2xl">
           <p className="font-semibold text-center flex items-center">
             <span className="animate-pulse mr-2">🎵</span>
             Playing National Anthem
