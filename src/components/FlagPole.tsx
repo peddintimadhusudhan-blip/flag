@@ -25,7 +25,7 @@ const FlagPole: React.FC<FlagPoleProps> = ({ isHoisted, isUnfurling }) => {
               !isHoisted ? 'w-8 h-32 bg-gradient-to-b from-orange-500 via-white to-green-600' : 
               !isUnfurling ? 'w-8 h-32 bg-gradient-to-b from-orange-500 via-white to-green-600' :
               'w-48 h-32'
-            } ${isUnfurling && isHoisted ? 'animate-wave origin-left' : ''}`}>
+            } ${isUnfurling && isHoisted ? 'animate-wave' : ''}`}>
               {/* Folded flag state */}
               {(!isHoisted || !isUnfurling) && (
                 <div className="w-full h-full bg-gradient-to-b from-orange-500 via-white to-green-600 relative">
@@ -69,7 +69,7 @@ const FlagPole: React.FC<FlagPoleProps> = ({ isHoisted, isUnfurling }) => {
             </div>
             
             {/* Flag rope */}
-            <div className="absolute left-0 top-0 w-0.5 h-32 bg-gray-500 shadow-sm"></div>
+            <div className="absolute -left-3 top-0 w-0.5 h-32 bg-gray-500 shadow-sm"></div>
           </div>
         </div>
       </div>
