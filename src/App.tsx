@@ -23,7 +23,7 @@ function App() {
         if (audioRef.current) {
           audioRef.current.play().catch(console.error);
         }
-      }, 2000);
+      }, 4000);
     } else {
       // Clear any pending timeout to prevent play() after pause()
       if (timeoutRef.current) {
