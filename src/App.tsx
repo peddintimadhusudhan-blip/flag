@@ -73,6 +73,16 @@ function App() {
       </audio>
 
       {/* Anthem Notice */}
+      {/* Eksaq Logo */}
+      <div className="fixed top-8 left-8 z-50">
+        <img 
+          src="/eksaqLogo.png" 
+          alt="Eksaq Logo" 
+          className="h-16 w-auto hover:scale-105 transition-transform duration-300 drop-shadow-lg"
+        />
+      </div>
+
+      {/* Anthem Notice */}
       {showAnthemNotice && (
         <div className="fixed top-8 right-8 z-50 bg-white/90 backdrop-blur-sm border-2 border-orange-500 rounded-xl px-8 py-4 shadow-2xl animate-pulse">
           <p className="text-orange-600 font-semibold text-center">
