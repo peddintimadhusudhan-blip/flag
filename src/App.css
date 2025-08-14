@@ -62,7 +62,7 @@ html {
 /* Falling flower petals animation */
 @keyframes fall {
   0% {
-    transform: translateY(-100vh) rotate(0deg);
+    transform: translateY(2vh) rotate(0deg);
     opacity: 1;
   }
   100% {
