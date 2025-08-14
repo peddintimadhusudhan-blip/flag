@@ -16,7 +16,7 @@ const FlagPole: React.FC<FlagPoleProps> = ({ isHoisted, isUnfurling }) => {
         {/* Flag */}
         <div 
           className={`absolute right-0 top-6 flag-hoist transform ${
-            isHoisted ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-48 opacity-60 scale-90'
+            isHoisted ? 'translate-y-0 opacity-100 scale-100' : 'translate-y-40 opacity-60 scale-90'
           }`}
         >
           <div className="relative">
